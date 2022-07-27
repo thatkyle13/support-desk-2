@@ -37,7 +37,20 @@ const getTicket = async (ticketId, token) => {
         }
     }
 
-    const response = await axios.get(`${API_URL}${ticketId}`, config)
+    const response = await axios.get(API_URL + ticketId, config)
+
+    return response.data
+}
+
+// Close Ticket
+const closeTicket = async (ticketId, token) => {
+    const config ={
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+
+    const response = await axios.put(API_URL + ticketId, {status: 'closed'}, config)
 
     return response.data
 }
@@ -45,7 +58,8 @@ const getTicket = async (ticketId, token) => {
 const ticketService = {
     createTicket,
     getTickets,
-    getTicket
+    getTicket,
+    closeTicket
 }
 
 export default ticketService
